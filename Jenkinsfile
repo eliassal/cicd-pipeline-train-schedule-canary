@@ -61,6 +61,7 @@ pipeline {
 							)]
 				)
             }
+	}
         
         stage('DeployToProduction') {
             when {
