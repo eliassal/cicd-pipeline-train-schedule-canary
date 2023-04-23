@@ -45,11 +45,8 @@ pipeline {
             steps {
                 input 'Deploy to Production?'
                 milestone(1)
-                kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
-                    configs: 'train-schedule-kube.yml',
-                    enableConfigSubstitution: true
-                )
+                sh 'kubectl apply -f nginx.deployment-green.yml'
+                sh 'kubectl rollout status deployment/nginx-deployment-green'
             }
         }
     }
