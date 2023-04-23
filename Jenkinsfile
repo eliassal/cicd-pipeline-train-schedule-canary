@@ -45,8 +45,8 @@ pipeline {
             steps {
                 input 'Deploy to Production?'
                 milestone(1)
-                sh 'kubectl apply -f nginx.deployment-green.yml'
-                sh 'kubectl rollout status deployment/nginx-deployment-green'
+                sh 'kubectl apply -f train-schedule-kube.yml'
+                sh 'kubectl rollout status deployment/train-schedule-kube.yml'
             }
         }
     }
