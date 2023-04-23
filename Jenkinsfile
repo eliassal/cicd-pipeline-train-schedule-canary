@@ -45,8 +45,10 @@ pipeline {
             steps {
                 input 'Deploy to Production?'
                 milestone(1)
-                sh 'kubectl apply -f train-schedule-kube.yml'
-                sh 'kubectl rollout status deployment/train-schedule-kube.yml'
+                kubernetesDeploy(
+                    kubeconfigId: 'kubeconfig',
+                    configs: 'train-schedule-kube.yml',
+                    enableConfigSubstitution: true
                 )
             }
         }
