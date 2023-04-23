@@ -38,6 +38,30 @@ pipeline {
                 }
             }
         }
+        
+        stage('ReplaceVariables') {
+           steps {
+               variableReplace(
+					configs: [
+						variablesReplaceConfig(
+							configs: [
+								variablesReplaceItemConfig( 
+									name: '$DOCKER_IMAGE_NAME',
+									value: '$DOCKER_IMAGE_NAME'
+								),
+								variablesReplaceItemConfig( 
+									name: '$BUILD_NUMBER',
+									value: '$BUILD_NUMBER'
+								)
+							],
+							fileEncoding: 'UTF-8', 
+							filePath: 'train-schedule-kube.yml', 
+							variablesPrefix: '#{', 
+							variablesSuffix: '}#'
+							)]
+				)
+            }
+        
         stage('DeployToProduction') {
             when {
                 branch 'master'
