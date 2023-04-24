@@ -41,7 +41,7 @@ pipeline {
         
         stage('ReplaceVariables') {
            steps {
-               variableReplace(
+              contentReplace(
 					configs: [
 						variablesReplaceConfig(
 							configs: [
