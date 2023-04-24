@@ -66,7 +66,7 @@ pipeline {
         stage('K8S - DeployToProduction') {
             steps {
                 sh 'kubectl apply -f train-schedule-kube.yml'
-                sh 'kubectl rollout status deployment/train-schedule-kube.yml'
+                
                 
             }
         }
