@@ -46,12 +46,12 @@ pipeline {
 						variablesReplaceConfig(
 							configs: [
 								variablesReplaceItemConfig( 
-									name: '$DOCKER_IMAGE_NAME',
-									value: '$DOCKER_IMAGE_NAME'
+									name: 'DOCKER_IMAGE_NAME',
+									value: '${env.DOCKER_IMAGE_NAME}'
 								),
 								variablesReplaceItemConfig( 
-									name: '$BUILD_NUMBER',
-									value: '$BUILD_NUMBER'
+									name: 'BUILD_NUMBER',
+									value: '${env.BUILD_NUMBER}'
 								)
 							],
 							fileEncoding: 'UTF-8', 
