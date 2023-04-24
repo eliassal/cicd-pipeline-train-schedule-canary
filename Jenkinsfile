@@ -38,6 +38,48 @@ pipeline {
                 }
             }
         }
+	
+	stage('ReplaceVariables For Canary Files') {
+	   environment { 
+                CANARY_REPLICAS = 1
+            }
+           steps {
+              contentReplace(
+					configs: [
+						variablesReplaceConfig(
+							configs: [
+								variablesReplaceItemConfig( 
+									name: 'DOCKER_IMAGE_NAME',
+									value: DOCKER_IMAGE_NAME
+								),
+								variablesReplaceItemConfig( 
+									name: 'BUILD_NUMBER',
+									value: '$BUILD_NUMBER'
+								),
+								variablesReplaceItemConfig( 
+									name: 'CANARY_REPLICAS',
+									value: CANARY_REPLICAS
+							],
+							fileEncoding: 'UTF-8', 
+							filePath: 'train-schedule-kube-canary.yml', 
+							variablesPrefix: '#{', 
+							variablesSuffix: '}#'
+							)]
+				)
+            	}
+	    }
+	    
+	stage('CanaryDeploy') {
+            when {
+                branch 'master'
+            }
+            environment { 
+                CANARY_REPLICAS = 1
+            }
+            steps {
+                sh 'kubectl apply -f train-schedule-kube-canary.yml'
+            }
+        }
         
         stage('ReplaceVariables') {
            steps {
@@ -60,11 +102,13 @@ pipeline {
 							variablesSuffix: '}#'
 							)]
 				)
-            }
+            	}
 	    }
         
         stage('K8S - DeployToProduction') {
             steps {
+		input 'Deploy to Production?'
+                milestone(1)
                 sh 'kubectl apply -f train-schedule-kube.yml'
                 
                 
