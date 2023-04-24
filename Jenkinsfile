@@ -59,6 +59,7 @@ pipeline {
 								variablesReplaceItemConfig( 
 									name: 'CANARY_REPLICAS',
 									value: CANARY_REPLICAS
+								)
 							],
 							fileEncoding: 'UTF-8', 
 							filePath: 'train-schedule-kube-canary.yml', 
