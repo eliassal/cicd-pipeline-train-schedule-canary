@@ -51,7 +51,7 @@ pipeline {
 								),
 								variablesReplaceItemConfig( 
 									name: 'BUILD_NUMBER',
-									value: '${env.BUILD_NUMBER}'
+									value: '$BUILD_NUMBER'
 								)
 							],
 							fileEncoding: 'UTF-8', 
