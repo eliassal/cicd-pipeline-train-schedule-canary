@@ -47,7 +47,7 @@ pipeline {
 							configs: [
 								variablesReplaceItemConfig( 
 									name: 'DOCKER_IMAGE_NAME',
-									value: '${env.DOCKER_IMAGE_NAME}'
+									value: DOCKER_IMAGE_NAME
 								),
 								variablesReplaceItemConfig( 
 									name: 'BUILD_NUMBER',
